@@ -1,15 +1,21 @@
+//Retrieves references to DOM elements with the ids 'get_meal' and 'meal'.
+
 const get_meal_btn = document.getElementById('get_meal');
 const meal_container = document.getElementById('meal');
 
 get_meal_btn.addEventListener('click', () => {
+	    // Fetches a random meal from the API
 	fetch('https://www.themealdb.com/api/json/v1/1/random.php')
 		.then(res => res.json())
 		.then(res => {
+
+			// Calls the createMeal function with the retrieved meal data
 		createMeal(res.meals[0]);
 	});
 });
 
 const createMeal = (meal) => {
+	 // Creates an array to store ingredients
 	const ingredients = [];
 	// Get all ingredients from the object. Up to 20
 	for(let i=1; i<=20; i++) {
@@ -21,6 +27,7 @@ const createMeal = (meal) => {
 		}
 	}
 	
+	    // Generates HTML content using template literals
 	const newInnerHTML = `
 		<div class="row">
 			<div class="columns five">
@@ -48,7 +55,7 @@ const createMeal = (meal) => {
 			</div>
 		</div>` : ''}
 	`;
-	
+	    // Sets the inner HTML of the 'meal_container' with the generated content
 	meal_container.innerHTML = newInnerHTML;
 }
 
